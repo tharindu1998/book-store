@@ -45,13 +45,13 @@ export class AuthSerivice{
 
         if(!user){
             throw new ForbiddenException(
-                'Credntials are incorrect'
+                'Credentials are incorrect'
             );
         }
         //check password
         const pwMatches = await argon2.verify(user.hash, dto.password);
 
-        if(!user){
+        if(!pwMatches){
             throw new ForbiddenException(
                 'Password is incorrect'
             );
