@@ -1,1 +1,2 @@
-export * from './jwt.strategy';
+export * from './jwt.at.strategy';
+export * from './jwt.rt.strategy';

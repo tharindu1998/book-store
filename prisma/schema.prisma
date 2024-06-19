@@ -18,29 +18,28 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  email String @unique
-  hash  String
-  hashedRt  String?
-
+  email    String  @unique
+  hash     String
+  hashedRt String?
 
   firstName String?
   lastName  String?
 
-  books      Book[]
+  books Book[]
+
   @@map("users")
 }
 
 model Book {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   title       String
   description String?
-  link        String
-
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
+  link        String?
+  author      String
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
 
   @@map("books")
 }
