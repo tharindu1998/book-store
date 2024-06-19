@@ -7,6 +7,7 @@ import { ConfigService } from "@nestjs/config";
 
 @Injectable({})
 export class AuthSerivice {
+
     constructor(
         private prismaService: PrismaSerivice,
         private jwtService: JwtService,
@@ -19,7 +20,7 @@ export class AuthSerivice {
             const hash = await argon2.hash(dto.password);
             const user = await this.prismaService.user.create({
                 data: {
-                    email: dto.email,
+                    email: dto.email as string,
                     hash: hash,
                 },
             });
@@ -43,7 +44,7 @@ export class AuthSerivice {
         //check user
         const user = await this.prismaService.user.findUnique({
             where: {
-                email: dto.email,
+                email: dto.email as string,
             },
         })
 
@@ -61,6 +62,13 @@ export class AuthSerivice {
             );
         }
         return this.signToken(user.id, user.email);
+    }
+
+    logout() {
+        throw new Error("Method not implemented.");
+    }
+    refreshTokens() {
+        throw new Error("Method not implemented.");
     }
 
     async signToken(userId: number, email: string): Promise<{ access_token: string }> {

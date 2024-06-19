@@ -4,7 +4,6 @@ import { BookModule } from './book/book.module';
 import { UserModule } from './user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
-import { UsersService } from './users/users.service';
 
 @Module({
   imports: [
@@ -15,6 +14,6 @@ import { UsersService } from './users/users.service';
     BookModule,
     UserModule,
     PrismaModule],
-  providers: [UsersService],
+  providers: [],
 })
 export class AppModule { }

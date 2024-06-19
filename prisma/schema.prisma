@@ -20,6 +20,8 @@ model User {
 
   email String @unique
   hash  String
+  hashedRt  String?
+
 
   firstName String?
   lastName  String?

@@ -7,13 +7,24 @@ import { AuthDto } from "./dto";
 export class AuthController{
     constructor(private authService:AuthSerivice){}
 
-    @Post('signup')
+    @Post('/local/signup')
     signup(@Body() dto: AuthDto){
         return this.authService.signup(dto);
     }
 
-    @Post('signin')
+    @Post('/local/signin')
     signin(@Body() dto: AuthDto){
         return this.authService.signin(dto);
+    }
+
+    @Post('refresh')
+    refreshTokens(){
+        return this.authService.refreshTokens();
+    }
+
+    @Post('logout')
+    logout(){
+        return this.authService.logout();
+
     }
 }
