@@ -92,10 +92,11 @@ export class AuthSerivice {
                 id: userId,
             },
         });
+
         if (!user) throw new ForbiddenException('Access Denied');
+        if (!user.hashedRt) throw new ForbiddenException('Access Denied');
 
         const rtMatches = await argon2.verify(user.hashedRt, rt);
-
         if (!rtMatches) throw new ForbiddenException('Access Denied');
 
         const tokens = await this.signToken(user.id, user.email);
@@ -138,6 +139,6 @@ export class AuthSerivice {
             data: {
                 hashedRt: hash
             }
-        })
+        });
     }
 }
