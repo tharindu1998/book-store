@@ -7,8 +7,9 @@ import { Request } from "express";
 import { GetCurrentUser } from "./decorator/get-current-user.decorator";
 import { GetCurrentUserId } from "./decorator/get-current-user-id.decorator";
 import { Public } from "./decorator/public.decorator";
+import { ApiTags } from "@nestjs/swagger";
 
-
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthSerivice) { }
