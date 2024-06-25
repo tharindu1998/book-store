@@ -7,7 +7,7 @@ import { Request } from "express";
 import { GetCurrentUser } from "./decorator/get-current-user.decorator";
 import { GetCurrentUserId } from "./decorator/get-current-user-id.decorator";
 import { Public } from "./decorator/public.decorator";
-import { ApiTags } from "@nestjs/swagger";
+import { ApiOperation, ApiTags } from "@nestjs/swagger";
 
 @ApiTags('auth')
 @Controller('auth')
@@ -17,6 +17,7 @@ export class AuthController {
     @Public()
     @Post('/local/signup')
     @HttpCode(HttpStatus.CREATED)
+    @ApiOperation({ summary: 'signup' })
     signup(@Body() dto: AuthDto): Promise<Tokens> {
         return this.authService.signup(dto);
     }
@@ -24,6 +25,7 @@ export class AuthController {
     @Public()
     @Post('/local/signin')
     @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: 'signin' })
     signin(@Body() dto: AuthDto) {
         return this.authService.signin(dto);
     }
@@ -31,6 +33,7 @@ export class AuthController {
     @UseGuards(AuthGuard('jwt'))
     @Post('logout')
     @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: 'logout' })
     logout(@GetCurrentUserId() userId: number) {
         return this.authService.logout(userId);
     }
@@ -39,6 +42,7 @@ export class AuthController {
     @UseGuards(AuthGuard('jwt-refresh'))
     @Post('refresh')
     @HttpCode(HttpStatus.OK)
+    @ApiOperation({ summary: 'refreshTokens' })
     refreshTokens(@GetCurrentUserId() userId: number,
         @GetCurrentUser('refreshToken') refreshToken: string
     ) {
